@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherAPi", "WeatherAPi\WeatherAPi.csproj", "{22D89DA7-3829-45AE-AC51-7D486826E4AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{9DF3490F-C545-4B2F-AFE7-F1DD5AB41113}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0E78AF93-7F8E-4239-9EB9-A7726A4BB6AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AD24EF3A-012F-4C61-AB02-ADB1E1B13CA8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22D89DA7-3829-45AE-AC51-7D486826E4AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D89DA7-3829-45AE-AC51-7D486826E4AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D89DA7-3829-45AE-AC51-7D486826E4AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D89DA7-3829-45AE-AC51-7D486826E4AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DF3490F-C545-4B2F-AFE7-F1DD5AB41113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DF3490F-C545-4B2F-AFE7-F1DD5AB41113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DF3490F-C545-4B2F-AFE7-F1DD5AB41113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DF3490F-C545-4B2F-AFE7-F1DD5AB41113}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9DF3490F-C545-4B2F-AFE7-F1DD5AB41113} = {AD24EF3A-012F-4C61-AB02-ADB1E1B13CA8}
+		{22D89DA7-3829-45AE-AC51-7D486826E4AE} = {0E78AF93-7F8E-4239-9EB9-A7726A4BB6AD}
+	EndGlobalSection
+EndGlobal
