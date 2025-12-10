@@ -35,10 +35,25 @@ jobs:
         run: dotnet test --configuration ${{ matrix.configuration }} --no-build --verbosity normal
 
       - name: Publish output
-        run: dotnet publish ./WeatherAPi/WeatherAPi.csproj --configuration Release -o ./publish/Release
+        run: dotnet publish ./WeatherAPi/WeatherAPi.csproj --configuration ${{ matrix.configuration }} -o ./publish/${{ matrix.configuration }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.configuration }}
           path: publish/${{ matrix.configuration }}
+
+  docker-build-push:
+    runs-on: ubuntu-latest
+    needs: build-test   # 🔥 запуск только после успешного build-test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/weatherapi
+          GIT_SHA=${{ github.sha }}
+
+          docker build -t $IMAGE_NAME:latest -t $IMAGE_NAME:$GIT_SHA -f WeatherAPi/Dockerfile WeatherAPi
