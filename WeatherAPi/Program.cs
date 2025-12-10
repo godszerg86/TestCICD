@@ -24,7 +24,7 @@ app.UseHttpsRedirection();
 
 var summaries = new[]
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild"
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Cold"
 };
 
 
