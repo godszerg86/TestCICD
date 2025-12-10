@@ -1,48 +1,43 @@
-name: .NET Core Desktop
+name: .NET CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-
-  build:
+  build-test:
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
         configuration: [Debug, Release]
+        dotnet-version: ['8.0.x']
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-
-    env:
-      Solution_Name: IntegrationTests.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-    
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
 
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
+      - name: Build
+        run: dotnet build --configuration ${{ matrix.configuration }} --no-restore
 
-    # Execute all unit tests in the solution
-    - name: Execute unit tests
-      run: dotnet test
+      - name: Run tests
+        run: dotnet test --configuration ${{ matrix.configuration }} --no-build --verbosity normal
 
-    - name: Build DotNet
-      uses: Elskom/build-dotnet@v1.1.1
-      with:
-        SOLUTION_FILE_PATH: $env.Solution_Name 
-          
+      - name: Publish output
+        run: dotnet publish ./YourProject.csproj --configuration ${{ matrix.configuration }} -o ./publish/${{ matrix.configuration }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.configuration }}
+          path: publish/${{ matrix.configuration }}
